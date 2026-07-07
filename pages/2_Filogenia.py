@@ -22,7 +22,6 @@ from pathlib import Path
 import streamlit as st
 
 st.markdown("### 🌳 Simulador de Filogenia (UPGMA)")
-st.caption("Simulador desarrollado en HTML, CSS y JavaScript por Ruth Margarita Canela Herrera.")
 
 st.info(
     "🧭 **Ayuda guiada:** escribe el nombre de 4 especies, completa la matriz de "
