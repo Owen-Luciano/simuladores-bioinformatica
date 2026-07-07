@@ -1,0 +1,5 @@
+streamlit
+biopython
+py3Dmol
+networkx
+matplotlib

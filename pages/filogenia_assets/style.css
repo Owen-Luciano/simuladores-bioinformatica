@@ -1,0 +1,209 @@
+/* ===== DISEÑO GENERAL ===== */
+body{
+    font-family: "Times New Roman", Times, serif;
+    background:#F7F3FF;
+    margin:0;
+    padding:30px;
+}
+
+/* ===== CONTENEDOR ===== */
+.contenedor{
+    background:white;
+    max-width:1000px;
+    margin:auto;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0px 4px 15px rgba(0,0,0,.15);
+}
+
+/* ===== TÍTULOS ===== */
+h1 { color:#5B2C87; text-align: center; }
+h2 { color: #1F4E79; }
+
+/* ===== PÁRRAFOS ===== */
+p { text-align: center; font-size: 17px; }
+#quiz p, .ayuda p { text-align: left; }
+
+/* ===== INPUTS ===== */
+input {
+    width: 60px;
+    padding: 6px;
+    text-align: center;
+}
+
+/* ===== TABLA ===== */
+table { margin: auto; border-collapse: collapse; }
+th, td { border: 1px solid #cccccc; padding: 10px; }
+
+/* ===== BOTÓN ===== */
+button {
+    background:#6C5CE7;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+button:hover { background: #083b6b; }
+
+.botones{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+/* ===== BARRA DE PROGRESO ===== */
+progress{ width:100%; height:25px; }
+
+/* ===== CAJAS ===== */
+#explicacion{
+    background:#eef5ff;
+    padding:15px;
+    border-radius:10px;
+    min-height:80px;
+}
+
+#arbol{
+    background:#f8f8f8;
+    padding:20px;
+    border-radius:10px;
+    min-height:120px;
+    text-align:center;
+    font-size:20px;
+}
+
+/* ===== RESALTADO DE CELDAS ===== */
+.resaltada{
+    background-color: gold;
+    transition: 0.5s;
+}
+
+/* ===== RESPUESTAS DEL QUIZ (una sola versión, con fondo) ===== */
+.correcta{
+    background-color:#4CAF50;
+    color:white;
+}
+.incorrecta{
+    background-color:#F44336;
+    color:white;
+}
+
+#estadoAlgoritmo{
+    margin-top:15px;
+    background:#f4f4f4;
+    border-left:6px solid #4CAF50;
+    padding:12px;
+    font-weight:bold;
+    border-radius:6px;
+}
+
+.quiz{ margin-top:20px; }
+
+.opcion{
+    cursor:pointer;
+    padding:5px;
+    margin:6px 0;
+    font-size:15px;
+}
+.opcion:hover{
+    background:#eee;
+    color:#6C5CE7;
+    font-weight:bold;
+}
+
+/* ===== AYUDA GUIADA ===== */
+.ayuda button{
+    background: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    margin: 4px;
+    transition: background 0.2s;
+}
+.ayuda button:hover{ background: #e0e0e0; }
+
+/* ===== ÁRBOL FILOGENÉTICO (versión final, estilo llamativo) ===== */
+.arbol{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    margin-top:20px;
+}
+
+.raiz{
+    font-weight:bold;
+    font-size:22px;
+    margin-bottom:14px;
+    color:#5B2C87;
+}
+
+.nodo{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.grupo{
+    display:inline-block;
+    background-color:#4CAF50;
+    color:white;
+    padding:10px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    font-size:18px;
+    margin:6px;
+}
+
+.hoja{
+    display:inline-block;
+    background-color:#2196F3;
+    color:white;
+    padding:8px 18px;
+    border-radius:10px;
+    font-weight:bold;
+    margin:6px;
+}
+
+.hijos{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    gap:40px;
+    margin-top:10px;
+}
+
+.lineaVertical{
+    width:4px;
+    height:30px;
+    background:#444;
+    margin:0 auto;
+}
+
+.lineaHorizontal{
+    width:60px;
+    height:4px;
+    background:#444;
+    margin:5px auto;
+}
+
+/* ===== ESTILO DE <details> (autoevaluación / ayuda) ===== */
+details{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+summary{
+    cursor:pointer;
+    font-size:22px;
+    font-weight:bold;
+    background:#eaf5ff;
+    padding:12px;
+    border-radius:10px;
+}
+summary:hover{ background:#d6ebff; }

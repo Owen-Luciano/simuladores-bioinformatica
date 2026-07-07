@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Filogenia - UPGMA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <h1>🌳 Simulador de Filogenia (UPGMA)</h1>
+
+        <p>
+            Aprende cómo el algoritmo UPGMA construye un árbol filogenético paso a paso.
+        </p>
+
+        <hr>
+
+        <h2>Especies</h2>
+
+        <div class="especies">
+    <input id="espA" type="text" placeholder="Especie A">
+    <input id="espB" type="text" placeholder="Especie B">
+    <input id="espC" type="text" placeholder="Especie C">
+    <input id="espD" type="text" placeholder="Especie D">
+</div>
+
+        <hr>
+
+        <h2>Matriz de Distancias</h2>
+
+        <table>
+
+            <tr>
+                <th></th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>D</th>
+            </tr>
+
+            <tr>
+    <th>A</th>
+    <td><input id="a1"></td>
+    <td id="celda_a2"><input id="a2"></td>
+    <td id="celda_a3"><input id="a3"></td>
+    <td id="celda_a4"><input id="a4"></td>
+</tr>
+
+            <tr>
+    <th>B</th>
+    <td><input id="b1"></td>
+    <td><input id="b2"></td>
+    <td id="celda_b3"><input id="b3"></td>
+    <td><input id="b4"></td>
+</tr>
+
+            <tr>
+    <th>C</th>
+    <td><input id="c1"></td>
+    <td><input id="c2"></td>
+    <td><input id="c3"></td>
+    <td id="celda_c4"><input id="c4"></td>
+</tr>
+
+            <tr>
+    <th>D</th>
+    <td><input id="d1"></td>
+    <td><input id="d2"></td>
+    <td><input id="d3"></td>
+    <td><input id="d4"></td>
+</tr>
+
+        </table>
+
+        <br>
+
+        <div class="botones">
+
+    <button id="btnEjemplo">
+        Cargar Ejemplo
+    </button>
+
+    <button id="btnConstruir">
+        Construir Árbol
+    </button>
+
+    <button id="btnReiniciar">
+        Reiniciar
+    </button>
+
+
+</div>
+
+        <div id="errorMatriz" style="color:#E53935;text-align:center;font-weight:bold;min-height:1.2em;"></div>
+
+        <hr>
+
+        <h2>Progreso</h2>
+
+       <progress id="barra" value="0" max="100"></progress>
+       <div id="estadoAlgoritmo">
+
+Esperando datos...
+
+</div>
+
+        <hr>
+
+        <h2>Explicación del algoritmo</h2>
+
+        <div id="explicacion">
+            Aquí aparecerá cada agrupación.
+        </div>
+
+        <hr>
+
+        <h2>Árbol Filogenético</h2>
+
+        <div id="arbol">
+            Todavía no se ha generado.
+        </div>
+        <hr>
+
+        <hr>
+
+<details>
+
+    <summary>📝 Autoevaluación</summary>
+
+    <div id="quiz">
+
+        <h3>1. ¿Qué hace primero el algoritmo UPGMA?</h3>
+
+        <p class="opcion pregunta1" data-correcta>
+A) Busca la menor distancia.
+</p>
+
+<p class="opcion pregunta1">
+B) Busca la mayor distancia.
+</p>
+
+<p class="opcion pregunta1">
+C) Ordena las especies alfabéticamente.
+</p>
+
+<p id="respuesta1"></p>
+
+        <hr>
+
+        <h3>2. ¿Qué representa una distancia pequeña entre dos especies?</h3>
+
+       <p class="opcion pregunta2" data-correcta>
+A) Que son más parecidas genéticamente.
+</p>
+
+<p class="opcion pregunta2">
+B) Que pertenecen a reinos diferentes.
+</p>
+
+<p class="opcion pregunta2">
+C) Que no tienen relación evolutiva.
+</p>
+
+<p id="respuesta2"></p>
+
+        <hr>
+
+        <h3>3. ¿Qué construye el algoritmo UPGMA?</h3>
+
+        <p class="opcion pregunta3" data-correcta>
+A) Un árbol filogenético.
+</p>
+
+<p class="opcion pregunta3">
+B) Una secuencia de ADN.
+</p>
+
+<p class="opcion pregunta3">
+C) Una proteína.
+</p>
+
+<p id="respuesta3"></p>
+
+    </div>
+
+</details>
+
+<hr>
+
+<details>
+
+    <summary>🆘 Ayuda</summary>
+
+    <div class="ayuda">
+
+        <p id="textoAyuda">
+            Selecciona una opción para obtener información.
+        </p>
+
+        <button id="ayuda1">¿Qué es UPGMA?</button>
+
+        <button id="ayuda2">¿Cómo se calcula la distancia?</button>
+
+        <button id="ayuda3">¿Para qué sirve un árbol filogenético?</button>
+
+    </div>
+
+</details>
+<hr>
+
+<footer>
+
+    <h3>📘 Créditos</h3>
+
+    <p>
+        Simulador educativo del algoritmo <strong>UPGMA</strong>.
+    </p>
+
+    <p>
+        <strong>Autores:</strong><br>
+
+        • Ruth Margarita Canela Herrera<br>
+        • Owen Ranyelis Luciano Valez<br>
+    </p>
+
+    <p>
+        © 2026
+    </p>
+
+</footer>
+
+</div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
