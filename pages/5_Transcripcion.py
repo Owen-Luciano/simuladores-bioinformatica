@@ -22,7 +22,6 @@ from pathlib import Path
 import streamlit as st
 
 st.markdown("### 🧬 Simulador de Transcripción y Traducción del ADN")
-st.caption("Simulador desarrollado en HTML y JavaScript por Ruth Margarita Canela Herrera.")
 
 st.info(
     "🧭 **Ayuda guiada:** escribe (o elige) una secuencia de ADN, presiona 'Iniciar' y avanza "
