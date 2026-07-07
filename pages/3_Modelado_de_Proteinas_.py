@@ -29,24 +29,52 @@ from Bio.SeqUtils import seq1
 # ============================================================
 st.set_page_config(page_title="Simulador de Proteínas", page_icon="🧬", layout="centered")
 
+# Inyección de CSS corregido y blindado contra el Modo Oscuro
 st.markdown("""
 <style>
-    .stApp { background: linear-gradient(180deg, #fdf6ff 0%, #f2f7ff 100%); }
-    h1, h2, h3 { color: #4b2e83; }
-    .stButton>button {
-        background-color: #7b2cbf;
-        color: white;
-        border-radius: 10px;
-        padding: 0.5em 1.3em;
-        font-weight: bold;
-        border: none;
+    /* Forzar fondo claro general */
+    .stApp { 
+        background: linear-gradient(180deg, #fdf6ff 0%, #f2f7ff 100%) !important; 
     }
+    
+    /* Forzar color de textos principales y subtítulos */
+    h1, h2, h3, h4, h5, h6, p, li, span, label, .stMarkdown { 
+        color: #333333 !important; 
+    }
+    
+    /* Forzar color específico de los títulos */
+    h1, h2, h3 { 
+        color: #4b2e83 !important; 
+    }
+    
+    /* Forzar color de las leyendas pequeñas (captions) */
+    .stCaption, figcaption, small {
+        color: #555555 !important;
+    }
+    
+    /* Forzar estilos de los textos dentro de los desplegables (expanders) y tablas */
+    .streamlit-expanderHeader, .st-emotion-cache-p6w76v, table, th, td {
+        color: #333333 !important;
+    }
+    
+    /* Estilo del botón */
+    .stButton>button {
+        background-color: #7b2cbf !important;
+        color: white !important;
+        border-radius: 10px !important;
+        padding: 0.5em 1.3em !important;
+        font-weight: bold !important;
+        border: none !important;
+    }
+    
+    /* Estilo de la tarjeta de ayuda */
     .tarjeta {
-        background-color: #ffffff;
-        border-radius: 14px;
-        padding: 1.1em;
-        border: 1px solid #e3d5f5;
-        box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
+        background-color: #ffffff !important;
+        border-radius: 14px !important;
+        padding: 1.1em !important;
+        border: 1px solid #e3d5f5 !important;
+        box-shadow: 0px 2px 6px rgba(0,0,0,0.05) !important;
+        color: #333333 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -166,10 +194,15 @@ def dibujar_composicion(composicion):
     valores = [composicion[l] for l in letras]
 
     fig, ax = plt.subplots(figsize=(7, 3.2))
+    # Forzar fondo del gráfico blanco para que combine
+    fig.patch.set_facecolor('#ffffff')
+    ax.set_facecolor('#ffffff')
+    
     ax.bar(letras, valores, color="#9d4edd")
-    ax.set_xlabel("Aminoácido (código de 1 letra)")
-    ax.set_ylabel("Cantidad")
-    ax.set_title("Composición de aminoácidos")
+    ax.set_xlabel("Aminoácido (código de 1 letra)", color="#333333")
+    ax.set_ylabel("Cantidad", color="#333333")
+    ax.set_title("Composición de aminoácidos", color="#4b2e83", fontweight="bold")
+    ax.tick_params(colors="#333333")
     return fig
 
 
@@ -313,7 +346,7 @@ if st.button("✅ Revisar mis respuestas"):
 st.markdown("---")
 st.markdown(
     """
-    <div style='text-align: center; padding: 1em; color: #6b6b6b; font-size: 0.9em;'>
+    <div style='text-align: center; padding: 1em; color: #555555; font-size: 0.9em;'>
         🧬 Creado por <b>Owen Ranyelis Luciano Valdez</b> y <b>Ruth Margarita Canela Herrera</b><br>
         Proyecto realizado para la asignatura de <b>Bioinformática</b>
     </div>
