@@ -276,4 +276,94 @@ if st.session_state.construir:
         
         with col_g2:
             st.markdown("#### 🗺️ Grafo Visual de De Bruijn")
-            st.caption("Los nodos representan los extremos y las
+            st.caption("Los nodos representan los extremos y las flechas con letras son tus k-mers. ¡Sigue las flechas para armarlo!")
+            grafo = dibujar_grafo(conexiones)
+            st.graphviz_chart(grafo, use_container_width=True)
+
+        st.divider()
+        st.markdown("### 🗺️ El camino de reconstrucción paso a paso")
+        
+        # Animación visual simulada del armado paso a paso
+        reconstruccion = kmers[0]
+        st.markdown(f"🟩 **Punto de Partida:** Empezamos leyendo el primer bloque: `{reconstruccion}`")
+        
+        for i in range(1, len(kmers)):
+            reconstruccion += kmers[i][-1]
+            st.markdown(f"➡️ **Paso {i}:** Enganchamos la letra **{kmers[i][-1]}** del fragmento `{kmers[i]}` $\\rightarrow$ Historial actual: `{reconstruccion}`")
+        
+        # Comparación final clara
+        st.markdown("#### 🎯 Comparación de Control de Calidad")
+        c1, c2 = st.columns(2)
+        with c1:
+            st.info(f"**Secuencia de Entrada:**\n`{secuencia}`")
+        with c2:
+            if secuencia == reconstruccion:
+                st.success(f"**Secuencia Armada:**\n`{reconstruccion}`")
+                st.balloons()
+            else:
+                st.error(f"**Secuencia Armada:**\n`{reconstruccion}`\n*(¡Hubo un problema de ambigüedad en el mapa!)*")
+
+    # 🏆 PESTAÑA 4: EVALUACIÓN TRADUCIDA A TRIVIA INTERACTIVA
+    with tab4:
+        st.subheader("🧪 ¡Desafío de Laboratorio!")
+        st.write("Demuestra tus superpoderes en bioinformática respondiendo estos desafíos basados en tus datos cargados:")
+
+        kmer1, kmer2, kmer3 = kmers[0], kmers[1], kmers[-1]
+        se_conectan = kmer1[1:] == kmer3[:-1]
+
+        # Preguntas adaptadas
+        res1 = st.text_input(f"1. Mirando el fragmento `{kmer1}`, ¿cuál es su PREFIJO (letras iniciales)?")
+        res2 = st.text_input(f"2. Mirando el fragmento `{kmer2}`, ¿cuál es su SUFIJO (letras finales)?")
+        
+        res3 = st.radio(f"3. Basado en las reglas, ¿pueden conectarse directamente `{kmer1}` con `{kmer3}`?", ["Sí", "No"], index=0)
+        
+        res4 = st.number_input(f"4. Si configuraste tu slider con k = {k}, ¿cuántas letras mide CADA prefijo o sufijo?", min_value=1, max_value=20, step=1)
+
+        if st.button("🎯 Entregar Informe de Respuestas"):
+            puntos = 0
+            st.markdown("### 📋 Corrección de tu informe:")
+            
+            if res1.upper().strip() == kmer1[:-1]:
+                st.success("✔ **Pregunta 1:** ¡Correcto! Quitaste la última letra a la perfección.")
+                puntos += 1
+            else:
+                st.error(f"✘ **Pregunta 1:** Incorrecto. El prefijo de `{kmer1}` es `{kmer1[:-1]}`.")
+
+            if res2.upper().strip() == kmer2[1:]:
+                st.success("✔ **Pregunta 2:** ¡Espectacular! Te quedaste solo con el bloque final.")
+                puntos += 1
+            else:
+                st.error(f"✘ **Pregunta 2:** Incorrecto. El sufijo de `{kmer2}` es `{kmer2[1:]}`.")
+
+            resp_correcta_3 = "Sí" if se_conectan else "No"
+            if res3 == resp_correcta_3:
+                st.success("✔ **Pregunta 3:** ¡Excelente deducción lógica!")
+                puntos += 1
+            else:
+                st.error(f"✘ **Pregunta 3:** Fallaste. La respuesta es `{resp_correcta_3}` porque sus extremos " + ("sí" if se_conectan else "no") + " son idénticos.")
+
+            if res4 == k - 1:
+                st.success(f"✔ **Pregunta 4:** ¡Exacto! Siempre es la fórmula matemática de $k - 1$ (en este caso, {k-1}).")
+                puntos += 1
+            else:
+                st.error(f"✘ **Pregunta 4:** Incorrecto. Recuerda que la longitud siempre es $k - 1$, o sea, {k-1}.")
+
+            st.markdown(f"## 🏆 Tu nota de laboratorio: {puntos}/4")
+            if puntos == 4:
+                st.success("🥇 ¡Perfecto! Eres oficialmente un experto genetista computacional.")
+            elif puntos >= 2:
+                st.warning("🥈 ¡Buen intento! Tienes las nociones básicas bien claras.")
+            else:
+                st.error("📚 Te sugerimos releer la pestaña de 'Guía y Teoría' para aclarar las dudas.")
+
+# -------------------------------------------------------
+# PIE DE PÁGINA (CRÉDITOS DISCRETOS)
+# -------------------------------------------------------
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("""
+<div style='text-align: center; font-size: 13px; opacity: 0.8; color: #555555;'>
+    <b>Simulador de Ensamblaje Genómico (Grafos de De Bruijn)</b><br>
+    Asignatura: Bioinformática | Licenciatura en Biología Orientada a la Educación Secundaria.<br>
+    Creado por <b>Owen Ranyelis Luciano Valdez</b> y <b>Ruth Margarita Canela Herrera</b> | © 2026
+</div>
+""", unsafe_allow_html=True)
