@@ -1,97 +1,110 @@
-import streamlit as plt
 import streamlit as st
+import pandas as pd
 
 # =====================================================
 # CONFIGURACIÓN DE PÁGINA Y ESTILOS VISUALES
 # =====================================================
 st.set_page_config(page_title="🧬 Simulador ADN", layout="centered")
 
-# CSS personalizado optimizado para estudiantes de secundaria (Estilo Bio-Tech moderno)
+# Inyección de CSS blindado universal (Claro/Oscuro)
 st.markdown("""
 <style>
-/* Fondo general con degradado sutil */
-.main {
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-    color: #f8fafc;
+/* Forzar fondo general claro y degradado */
+.stApp, .main {
+    background: linear-gradient(180deg, #fdf6ff 0%, #f2f7ff 100%) !important;
 }
 
-/* Títulos con tipografía moderna y colores llamativos */
+/* Forzar color de textos generales y de control */
+p, li, span, label, .stMarkdown, .stDataFrame, .stRadio { 
+    color: #333333 !important; 
+}
+
+/* Títulos y Subtítulos con contraste fijo */
 h1 {
-    color: #38bdf8 !important;
+    color: #4b2e83 !important; 
     font-family: 'Inter', sans-serif;
     font-weight: 800;
     text-align: center;
-    text-shadow: 0px 4px 12px rgba(56, 189, 248, 0.2);
+    text-shadow: 0px 2px 6px rgba(123, 44, 191, 0.1) !important;
+    margin-bottom: 20px !important;
 }
-h2, h3 {
-    color: #a78bfa !important;
+h2, h3, h4 {
+    color: #7b2cbf !important; 
     font-family: 'Inter', sans-serif;
     font-weight: 700;
 }
 
 /* Botones estilo "Videojuego/Moderno" */
 div.stButton > button {
-    background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%) !important;
+    background: linear-gradient(90deg, #7b2cbf 0%, #6366f1 100%) !important;
     color: white !important;
     border-radius: 20px !important;
     padding: 0.6rem 2rem !important;
     border: none !important;
     font-weight: bold !important;
     font-size: 16px !important;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2) !important;
     transition: all 0.3s ease;
     width: 100%;
 }
-
 div.stButton > button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
 }
 
-/* Inputs de texto limpios y redondeados */
+/* Inputs de texto limpios y redondeados con fondos legibles */
 input {
-    background-color: #1e293b !important;
-    border: 2px solid #475569 !important;
+    background-color: #ffffff !important;
+    border: 2px solid #e3d5f5 !important;
     border-radius: 12px !important;
-    color: #f8fafc !important;
+    color: #333333 !important;
     font-size: 16px !important;
 }
 input:focus {
-    border-color: #38bdf8 !important;
-    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5) !important;
+    border-color: #7b2cbf !important;
+    box-shadow: 0 0 10px rgba(123, 44, 191, 0.3) !important;
 }
 
-/* Tarjetas informativas personalizadas */
+/* Contenedores y Tarjetas adaptables e inmunes al modo oscuro */
 .bio-card {
-    background-color: rgba(30, 41, 59, 0.7);
+    background-color: rgba(123, 44, 191, 0.06) !important;
     padding: 20px;
     border-radius: 16px;
-    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-left: 6px solid #7b2cbf !important;
     margin-bottom: 20px;
-    backdrop-filter: blur(10px);
+    color: #333333 !important;
 }
 
-/* =====================================================
-MODIFICAR EL TAMAÑO DE LAS PESTAÑAS (TABS)
-===================================================== */
+/* Ajustes de legibilidad para elementos específicos de Streamlit */
+.stCaption, figcaption, small, .stWidgetLabel {
+    color: #555555 !important;
+}
+.streamlit-expanderHeader {
+    color: #333333 !important;
+}
+
+/* MODIFICAR EL TAMAÑO DE LAS PESTAÑAS (TABS) */
 button[data-baseweb="tab"] {
     font-size: 18px !important;
     font-weight: 700 !important;
     padding: 10px 20px !important;
+    color: #6b7280 !important;
 }
-
+button[aria-selected="true"] {
+    color: #7b2cbf !important;
+}
 div[data-baseweb="tab-panel"] {
     font-size: 16px !important;
+    padding-top: 20px;
 }
 
-/* Separadores */
+/* Separadores Neón Sutiles */
 hr {
     border: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+    background: linear-gradient(90deg, transparent, #a78bfa, transparent) !important;
     margin: 2rem 0;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -179,22 +192,22 @@ if "ejecutado" in st.session_state:
         header_cols = st.columns(len(col_labels) + 1)
         header_cols[0].write("")
         for j in range(len(col_labels)):
-            header_cols[j + 1].markdown(f"<div style='text-align:center;font-weight:bold;color:#38bdf8;'>{col_labels[j]}</div>", unsafe_allow_html=True)
+            header_cols[j + 1].markdown(f"<div style='text-align:center;font-weight:bold;color:#7b2cbf;'>{col_labels[j]}</div>", unsafe_allow_html=True)
 
         for i in range(filas):
             cols = st.columns(len(col_labels) + 1)
-            cols[0].markdown(f"<div style='font-weight:bold;color:#a78bfa;'>{row_labels[i]}</div>", unsafe_allow_html=True)
+            cols[0].markdown(f"<div style='font-weight:bold;color:#6366f1;'>{row_labels[i]}</div>", unsafe_allow_html=True)
             for j in range(columnas):
                 value = matriz[i][j]
                 if i == 0 or j == 0:
-                    cols[j + 1].markdown(f"<div style='text-align:center;background-color:#1e3a8a;border-radius:6px;padding:2px;font-size:14px;'>🟦 {value}</div>", unsafe_allow_html=True)
+                    cols[j + 1].markdown(f"<div style='text-align:center;background-color:#dbeafe;color:#1e40af;border-radius:6px;padding:2px;font-size:14px;font-weight:bold;'>🟦 {value}</div>", unsafe_allow_html=True)
                 else:
                     if value > 0:
-                        cols[j + 1].markdown(f"<div style='text-align:center;background-color:#065f46;border-radius:6px;padding:2px;font-size:14px;'>🟩 {value}</div>", unsafe_allow_html=True)
+                        cols[j + 1].markdown(f"<div style='text-align:center;background-color:#d1fae5;color:#065f46;border-radius:6px;padding:2px;font-size:14px;font-weight:bold;'>🟩 {value}</div>", unsafe_allow_html=True)
                     elif value < 0:
-                        cols[j + 1].markdown(f"<div style='text-align:center;background-color:#991b1b;border-radius:6px;padding:2px;font-size:14px;'>🟥 {value}</div>", unsafe_allow_html=True)
+                        cols[j + 1].markdown(f"<div style='text-align:center;background-color:#fee2e2;color:#991b1b;border-radius:6px;padding:2px;font-size:14px;font-weight:bold;'>🟥 {value}</div>", unsafe_allow_html=True)
                     else:
-                        cols[j + 1].markdown(f"<div style='text-align:center;background-color:#334155;border-radius:6px;padding:2px;font-size:14px;'>⬜ {value}</div>", unsafe_allow_html=True)
+                        cols[j + 1].markdown(f"<div style='text-align:center;background-color:#f1f5f9;color:#334155;border-radius:6px;padding:2px;font-size:14px;font-weight:bold;'>⬜ {value}</div>", unsafe_allow_html=True)
 
     # Traceback algorítmico
     i, j = len(secuencia1), len(secuencia2)
@@ -276,7 +289,7 @@ if "ejecutado" in st.session_state:
 st.markdown("<hr>", unsafe_allow_html=True)
 with st.container():
     st.markdown("""
-    <div style='text-align: center; font-size: 13px; opacity: 0.7;'>
+    <div style='text-align: center; font-size: 13px; opacity: 0.8; color: #555555;'>
         <b>Simulador de Alineamiento Global (Needleman-Wunsch)</b><br>
         Desarrollado con fines educativos por <b>Owen Ranyelis Luciano Valdez</b> y <b>Ruth Margarita Canela Herrera</b>.<br>
         🐍 Python + 🚀 Streamlit | © 2026
