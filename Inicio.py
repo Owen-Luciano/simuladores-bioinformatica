@@ -4,8 +4,8 @@ import streamlit as st
 # CONFIGURACIÓN DE PÁGINA Y ESTILOS VISUALES
 # =====================================================
 st.set_page_config(
-    page_title="Suite Bioinformática Educativa",
-    page_icon="🧬",
+    page_title="Bioinformática Educativa",
+    page_icon="💻",
     layout="wide"
 )
 
@@ -134,9 +134,9 @@ with col_hero1:
     st.info("💡 **Indicación:** Usa el menú desplegable o la barra lateral izquierda de la pantalla para seleccionar y ejecutar el simulador que deseas explorar el día de hoy.")
 
 with col_hero2:
-    # Imagen de alta calidad integrada directamente para vestir la suite con estética de laboratorio biotecnológico
+    # Ruta local de la imagen de portada configurada correctamente para leer desde GitHub
     st.image(
-        "https://images.unsplash.com/photo-1532187643603-ba119ca4109e?q=80&w=600&auto=format&fit=crop", 
+        "imagenes/portada.png", 
         caption="Análisis genómico y modelado computacional",
         use_container_width=True
     )
